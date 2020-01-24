@@ -256,6 +256,27 @@ ggplot(ratings, aes(x = series, y = viewer_growth, fill = bbc)) +
 
 
 
+tidy_ratings <- ratings %>%
+    # Gather and convert episode to factor
+	gather(key = "episode", value = "viewers_7day", -series, 
+           factor_key = TRUE, na.rm = TRUE) %>%
+	# Sort in ascending order by series and episode
+    arrange(series, episode) %>% 
+	# Create new variable using row_number()
+    mutate(episode_count = row_number())
+
+# Plot viewers by episode and series
+ggplot(tidy_ratings, aes(x = episode_count, 
+                y = viewers_7day, 
+                fill = series)) + geom_col()
+
+
+
+
+
+
+
+
 
 
 
@@ -337,6 +358,31 @@ glimpse(viewers_7day)
 ############################# CHAPTER 3 ################################################
 
 
+
+
+# Plot of episode 1 viewers by series
+ggplot(ratings, aes(x = series, y = e1)) +
+    geom_col()
+
+
+
+# Adapt code to plot episode 2 viewers by series
+ggplot(ratings, aes(x = series, y = e2)) +
+    geom_col()
+
+
+
+
+
+
+
+
+
+
+tidy_ratings <- ratings %>%
+    # Gather and convert episode to factor
+	gather(key = "episode", value = "viewers_7day", -series, 
+           factor_key = TRUE, na.rm = TRUE)
 
 
 
